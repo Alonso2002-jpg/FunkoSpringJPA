@@ -20,11 +20,14 @@ public class Categoria {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Pattern(regexp = "^(MARVEL|DISNEY|ANIME|OTROS)$", message = "Category must be MARVEL, DISNEY, ANIME or OTROS")
+    @Column(name = "name")
     private String nameCategory;
     @Builder.Default
     private LocalDate createdAt = LocalDate.now();
     @Builder.Default
     private LocalDate updatedAt = LocalDate.now();
     @Builder.Default
+    @Column(name = "active")
     private boolean isActive = true;
+    
 }

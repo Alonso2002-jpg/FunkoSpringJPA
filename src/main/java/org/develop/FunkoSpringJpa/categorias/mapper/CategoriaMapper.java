@@ -49,6 +49,7 @@ public class CategoriaMapper {
     public CategoriaResponseDto toResponseDto(Categoria categoria){
         return CategoriaResponseDto.builder()
                 .nameCategory(categoria.getNameCategory())
+                .isActive(categoria.isActive())
                 .build();
     }
 
