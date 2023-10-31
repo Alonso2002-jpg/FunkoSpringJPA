@@ -32,17 +32,18 @@ public class FunkoServiceImpl implements FunkoService{
     this.categoriaService = categoriaService;
     }
     @Override
-    public List<Funko> getAll(Double price, String category) {
+    public List<Funko> getAll(Double price, Long category) {
         if (category != null && price != null){
-            return funkoRepository.findAllByCategoryAndPrice(category, price);
+            return funkoRepository.findAllByPriceAndCategory(price,categoriaService.getById(category));
         }else if (price != null) {
             return funkoRepository.findAllByPrice(price);
         }else if (category != null) {
-            return funkoRepository.findAllByCategory(category);
+            return funkoRepository.findAllByCategory(categoriaService.getById(category));
         }else {
            return funkoRepository.findAll();
         }
     }
+
 
     @Override
     @Cacheable

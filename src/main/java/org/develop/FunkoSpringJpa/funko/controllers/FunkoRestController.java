@@ -34,7 +34,7 @@ public class FunkoRestController {
     @GetMapping
     public ResponseEntity<List<FunkoResponseDto>> getFunkos(
             @RequestParam(required = false) Double price,
-            @RequestParam(required = false) String category) {
+            @RequestParam(required = false) Long category) {
         return ResponseEntity.ok(funkosMapper.toResponseDtoList(funkoService.getAll(price, category)));
     }
 

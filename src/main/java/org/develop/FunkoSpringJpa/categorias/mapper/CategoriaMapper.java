@@ -14,6 +14,7 @@ public class CategoriaMapper {
     public Categoria toCategoria(CategoriaCreateDto categoriaCreateDto){
         return Categoria.builder()
                 .nameCategory(categoriaCreateDto.nameCategory())
+                .isActive(categoriaCreateDto.isActive())
                 .build();
     }
 

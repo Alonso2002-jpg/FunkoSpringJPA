@@ -1,6 +1,7 @@
 package org.develop.FunkoSpringJpa.categorias.commons.mainUse.dto;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import lombok.Builder;
 
@@ -9,6 +10,8 @@ import lombok.Builder;
 public record CategoriaCreateDto(
         @NotBlank
         @Pattern(regexp = "^(MARVEL|DISNEY|ANIME|OTROS)$", message = "Category must be MARVEL, DISNEY, ANIME or OTROS")
-        String nameCategory
+        String nameCategory,
+        @NotNull
+        Boolean isActive
 ) {
 }

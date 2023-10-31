@@ -7,7 +7,7 @@ import org.develop.FunkoSpringJpa.funko.commons.mainUse.model.Funko;
 import java.util.List;
 
 public interface FunkoService {
-    List<Funko> getAll(Double price, String category);
+    List<Funko> getAll(Double price, Long category);
     Funko findById(Long id);
     Funko save(FunkoCreateDto t);
 
