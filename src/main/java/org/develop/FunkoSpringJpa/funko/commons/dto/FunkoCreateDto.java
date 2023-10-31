@@ -20,6 +20,6 @@ public record FunkoCreateDto(
         @Pattern(regexp = ".*\\.(jpg|jpeg|png|gif|bmp)$", message = "IMG just can be a valid image")
         String image,
         @NotNull(message = "Category must not be null")
-        Categoria category
+        Long category
 ) {
 }

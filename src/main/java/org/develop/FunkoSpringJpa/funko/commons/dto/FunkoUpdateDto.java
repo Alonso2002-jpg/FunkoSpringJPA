@@ -15,5 +15,5 @@ public record FunkoUpdateDto(
         @Pattern(regexp = ".*\\.(jpg|jpeg|png|gif|bmp)$", message = "IMG just can be a valid image")
         String image,
         @Pattern(regexp = "^(MARVEL|DISNEY|ANIME|OTROS)$", message = "Category must be MARVEL, DISNEY, ANIME or OTROS")
-        Categoria category) {
+        Long category) {
 }

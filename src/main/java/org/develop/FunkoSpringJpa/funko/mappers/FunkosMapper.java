@@ -1,4 +1,5 @@
 package org.develop.FunkoSpringJpa.funko.mappers;
+import org.develop.FunkoSpringJpa.categorias.commons.mainUse.model.Categoria;
 import org.develop.FunkoSpringJpa.funko.commons.dto.FunkoCreateDto;
 import org.develop.FunkoSpringJpa.funko.commons.dto.FunkoResponseDto;
 import org.develop.FunkoSpringJpa.funko.commons.dto.FunkoUpdateDto;
@@ -10,44 +11,25 @@ import java.util.List;
 @Component
 public class FunkosMapper {
 
-    public Funko toFunko(FunkoCreateDto funkoCreateDto){
+    public Funko toFunko(FunkoCreateDto funkoCreateDto, Categoria categoria){
         return Funko.builder()
                 .name(funkoCreateDto.name())
                 .price(funkoCreateDto.price())
                 .quantity(funkoCreateDto.quantity())
-                .category(funkoCreateDto.category())
+                .category(categoria)
                 .image(funkoCreateDto.image())
                 .build();
     }
 
-    public FunkoCreateDto toCreate(Funko funko){
-        return FunkoCreateDto.builder()
-                .name(funko.getName())
-                .price(funko.getPrice())
-                .quantity(funko.getQuantity())
-                .category(funko.getCategory())
-                .image(funko.getImage())
-                .build();
-    }
-    public Funko toFunko(FunkoUpdateDto funkoUpdateDto, Funko funko){
+    public Funko toFunko(FunkoUpdateDto funkoUpdateDto, Funko funko, Categoria categoria){
         return Funko.builder()
                 .id(funko.getId())
                 .name(funkoUpdateDto.name() == null ? funko.getName() : funkoUpdateDto.name())
                 .price(funkoUpdateDto.price() == null ? funko.getPrice() : funkoUpdateDto.price())
                 .quantity(funkoUpdateDto.quantity() == null ? funko.getQuantity() : funkoUpdateDto.quantity())
                 .image(funkoUpdateDto.image() == null ? funko.getImage() : funkoUpdateDto.image())
-                .category(funkoUpdateDto.category() == null ? funko.getCategory() : funkoUpdateDto.category())
+                .category(categoria == null ? funko.getCategory() : categoria)
                 .createdAt(funko.getCreatedAt())
-                .build();
-    }
-
-    public FunkoUpdateDto toUpdate(Funko funko){
-        return FunkoUpdateDto.builder()
-                .name(funko.getName())
-                .price(funko.getPrice())
-                .quantity(funko.getQuantity())
-                .image(funko.getImage())
-                .category(funko.getCategory())
                 .build();
     }
     public Funko toFunko(FunkoResponseDto funkoResponseDto, Long id){
