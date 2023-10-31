@@ -1,4 +1,4 @@
-package org.develop.FunkoSpringJpa.controllers;
+package org.develop.FunkoSpringJpa.categorias.controllers;
 
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
