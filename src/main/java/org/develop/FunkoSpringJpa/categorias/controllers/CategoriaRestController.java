@@ -21,7 +21,7 @@ import java.util.Map;
 
 @RestController
 @Slf4j
-@RequestMapping("categorias")
+@RequestMapping("funkos/categorias")
 public class CategoriaRestController {
     private final CategoriaService categoriaService;
     private final CategoriaMapper categoriaMapper;

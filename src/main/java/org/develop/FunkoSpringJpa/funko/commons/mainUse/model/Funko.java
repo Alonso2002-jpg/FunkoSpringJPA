@@ -38,8 +38,10 @@ public class Funko {
     @JoinColumn(name = "category_id")
     private Categoria category;
     @Builder.Default
+    @Column(updatable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private LocalDate createdAt = LocalDate.now();
     @Builder.Default
+    @Column(columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
     private LocalDate updatedAt = LocalDate.now();
 
 }

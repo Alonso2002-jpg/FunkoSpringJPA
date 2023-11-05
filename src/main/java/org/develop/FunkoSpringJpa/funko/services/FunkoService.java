@@ -5,6 +5,7 @@ import org.develop.FunkoSpringJpa.funko.commons.dto.FunkoUpdateDto;
 import org.develop.FunkoSpringJpa.funko.commons.mainUse.model.Funko;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface FunkoService {
     List<Funko> getAll(Double price, Long category);
@@ -15,4 +16,5 @@ public interface FunkoService {
     Funko update(Long id, FunkoUpdateDto funko);
 
     void deleteAll();
+
 }

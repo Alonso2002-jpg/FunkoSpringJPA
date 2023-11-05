@@ -19,15 +19,17 @@ public class Categoria {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Pattern(regexp = "^(MARVEL|DISNEY|ANIME|OTROS)$", message = "Category must be MARVEL, DISNEY, ANIME or OTROS")
-    @Column(name = "name")
+    @Pattern(regexp = "^(SERIE|DISNEY|SUPERHEROES|PELICULAS|OTROS)$", message = "Category must be SERIE, DISNEY, SUPERHEROES, PELICULAS or OTROS")
+    @Column(name = "name", unique = true, nullable = false)
     private String nameCategory;
     @Builder.Default
+    @Column(updatable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private LocalDate createdAt = LocalDate.now();
     @Builder.Default
+    @Column(columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
     private LocalDate updatedAt = LocalDate.now();
     @Builder.Default
-    @Column(name = "active")
+    @Column(name = "active", nullable = false, columnDefinition = "BOOLEAN DEFAULT TRUE")
     private boolean isActive = true;
     
 }

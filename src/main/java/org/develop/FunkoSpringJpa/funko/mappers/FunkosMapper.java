@@ -32,6 +32,13 @@ public class FunkosMapper {
                 .createdAt(funko.getCreatedAt())
                 .build();
     }
+
+    public FunkoUpdateDto toUpdateDto(Funko funko){
+        return FunkoUpdateDto.builder()
+                .image(funko.getImage())
+                .build();
+
+    }
     public Funko toFunko(FunkoResponseDto funkoResponseDto, Long id){
         return Funko.builder()
                 .id(id)

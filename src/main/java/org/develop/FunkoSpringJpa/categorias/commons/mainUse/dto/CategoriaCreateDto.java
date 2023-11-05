@@ -9,9 +9,8 @@ import lombok.Builder;
 @Builder
 public record CategoriaCreateDto(
         @NotBlank
-        @Pattern(regexp = "^(MARVEL|DISNEY|ANIME|OTROS)$", message = "Category must be MARVEL, DISNEY, ANIME or OTROS")
+        @Pattern(regexp = "^(SERIE|DISNEY|SUPERHEROES|PELICULAS|OTROS)$", message = "Category must be SERIE, DISNEY, SUPERHEROES, PELICULAS or OTROS")
         String nameCategory,
-        @NotNull
         Boolean isActive
 ) {
 }

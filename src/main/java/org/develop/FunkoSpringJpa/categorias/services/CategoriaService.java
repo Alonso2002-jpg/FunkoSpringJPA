@@ -5,13 +5,13 @@ import org.develop.FunkoSpringJpa.categorias.commons.mainUse.dto.CategoriaUpdate
 import org.develop.FunkoSpringJpa.categorias.commons.mainUse.model.Categoria;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface CategoriaService {
 
     List<Categoria> getAll();
     Categoria getById(Long id);
     Categoria save(CategoriaCreateDto t);
-
     void deleteById(Long id);
     Categoria update(Long id, CategoriaUpdateDto funko);
 

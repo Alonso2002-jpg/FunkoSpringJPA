@@ -7,12 +7,16 @@ import org.develop.FunkoSpringJpa.funko.commons.dto.FunkoResponseDto;
 import org.develop.FunkoSpringJpa.funko.commons.dto.FunkoUpdateDto;
 import org.develop.FunkoSpringJpa.funko.mappers.FunkosMapper;
 import org.develop.FunkoSpringJpa.funko.services.FunkoService;
+import org.develop.FunkoSpringJpa.storage.service.StorageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.HashMap;
 import java.util.List;
@@ -24,11 +28,13 @@ import java.util.Map;
 public class FunkoRestController {
         private final FunkoService funkoService;
         private final FunkosMapper funkosMapper;
+        private final StorageService storageService;
 
     @Autowired
-    public FunkoRestController(FunkoService funkoService, FunkosMapper funkosMapper) {
+    public FunkoRestController(FunkoService funkoService, FunkosMapper funkosMapper,StorageService storageService) {
         this.funkoService =funkoService;
         this.funkosMapper = funkosMapper;
+        this.storageService = storageService;
     }
 
     @GetMapping
@@ -59,6 +65,21 @@ public class FunkoRestController {
         return ResponseEntity.noContent().build();
     }
 
+        @PatchMapping(value = "imagen/{id}",consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<FunkoResponseDto> putImagen(@PathVariable long id, @RequestPart("file") MultipartFile file){
+
+        if (!file.isEmpty()){
+            String img =storageService.store(file);
+            String urlName = storageService.getUrl(img).replace(" ","%");
+
+             var funko = funkoService.findById(id);
+             funko.setImage(urlName);
+             funkoService.update(id,funkosMapper.toUpdateDto(funko));
+             return ResponseEntity.ok(funkosMapper.toResponseDto(funko));
+        }else {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Imagen no enviada");
+        }
+    }
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public Map<String, String> handleValidationExceptions(
