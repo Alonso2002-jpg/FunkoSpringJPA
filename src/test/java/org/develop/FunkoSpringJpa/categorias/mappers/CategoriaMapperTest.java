@@ -1,4 +1,5 @@
-import static org.junit.jupiter.api.Assertions.*;
+package org.develop.FunkoSpringJpa.categorias.mappers;
+
 class CategoriaMapperTest {
-  
+
 }

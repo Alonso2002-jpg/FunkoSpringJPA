@@ -65,7 +65,7 @@ public class FunkoRestController {
         return ResponseEntity.noContent().build();
     }
 
-        @PatchMapping(value = "imagen/{id}",consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    @PatchMapping(value = "imagen/{id}",consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<FunkoResponseDto> putImagen(@PathVariable long id, @RequestPart("file") MultipartFile file){
 
         if (!file.isEmpty()){

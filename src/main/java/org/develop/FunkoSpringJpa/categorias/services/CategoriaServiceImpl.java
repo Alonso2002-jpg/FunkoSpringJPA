@@ -5,7 +5,7 @@ import org.develop.FunkoSpringJpa.categorias.commons.mainUse.dto.CategoriaUpdate
 import org.develop.FunkoSpringJpa.categorias.commons.mainUse.model.Categoria;
 import org.develop.FunkoSpringJpa.categorias.exceptions.CategoriaExistException;
 import org.develop.FunkoSpringJpa.categorias.exceptions.CategoriaNotFoundException;
-import org.develop.FunkoSpringJpa.categorias.mapper.CategoriaMapper;
+import org.develop.FunkoSpringJpa.categorias.mappers.CategoriaMapper;
 import org.develop.FunkoSpringJpa.categorias.repositories.CategoriaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;

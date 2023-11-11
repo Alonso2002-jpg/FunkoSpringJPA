@@ -1,9 +1,11 @@
 INSERT INTO CATEGORIAS (name,active)
-VALUES ('MARVEL',true);
+VALUES ('SERIE',true);
 INSERT INTO CATEGORIAS (name,active)
 VALUES ('DISNEY',true);
 INSERT INTO CATEGORIAS (name,active)
-VALUES ('ANIME',true);
+VALUES ('SUPERHEROES',true);
+INSERT INTO CATEGORIAS (name,active)
+VALUES ('PELICULAS',true);
 INSERT INTO CATEGORIAS (name,active)
 VALUES ('OTROS',true);
 

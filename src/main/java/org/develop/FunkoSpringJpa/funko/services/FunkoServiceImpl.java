@@ -108,9 +108,9 @@ public class FunkoServiceImpl implements FunkoService{
     public Funko update(Long id, FunkoUpdateDto funko) {
         var funkoUpd = funkoRepository.save(
                 funkosMapper.toFunko(
-                        funko,
-                        findById(id),
-                        funko.category() == null ? null : categoriaService.getById(funko.category())));
+        funko,
+        findById(id),
+        funko.category() == null ? null : categoriaService.getById(funko.category())));
         onChange(Notificacion.Tipo.UPDATE, funkoUpd);
         return funkoUpd;
     }

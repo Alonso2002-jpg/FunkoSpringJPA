@@ -1,4 +1,4 @@
-package org.develop.FunkoSpringJpa.categorias.mapper;
+package org.develop.FunkoSpringJpa.categorias.mappers;
 
 import org.develop.FunkoSpringJpa.categorias.commons.mainUse.dto.CategoriaCreateDto;
 import org.develop.FunkoSpringJpa.categorias.commons.mainUse.dto.CategoriaResponseDto;
