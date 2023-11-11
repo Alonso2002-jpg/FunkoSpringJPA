@@ -3,12 +3,14 @@ package org.develop.FunkoSpringJpa.funko.services;
 import org.develop.FunkoSpringJpa.funko.commons.dto.FunkoCreateDto;
 import org.develop.FunkoSpringJpa.funko.commons.dto.FunkoUpdateDto;
 import org.develop.FunkoSpringJpa.funko.commons.mainUse.model.Funko;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 import java.util.Optional;
 
 public interface FunkoService {
-    List<Funko> getAll(Double price, Long category);
+    Page<Funko> getAll(Optional<String> name, Optional<Integer> quantity, Optional<Double> price, Optional<String> category, Pageable pageable);
     Funko findById(Long id);
     Funko save(FunkoCreateDto t);
 
