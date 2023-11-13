@@ -18,7 +18,7 @@ public class FunkosMapper {
                 .price(funkoCreateDto.price())
                 .quantity(funkoCreateDto.quantity())
                 .category(categoria)
-                .image(funkoCreateDto.image())
+                .image(funkoCreateDto.image() == null ? Funko.IMG_DEFAULT : funkoCreateDto.image())
                 .build();
     }
 

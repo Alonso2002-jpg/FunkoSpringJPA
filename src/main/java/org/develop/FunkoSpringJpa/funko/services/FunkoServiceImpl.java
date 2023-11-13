@@ -28,6 +28,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -132,6 +133,17 @@ public class FunkoServiceImpl implements FunkoService{
         return funkoUpd;
     }
 
+    @Override
+    public Funko updateImage(Long id, MultipartFile file) {
+        Funko actualFunko = findById(id);
+        String img =storageService.store(file);
+        String urlName = storageService.getUrl(img).replace(" ","");
+        if (!actualFunko.getImage().equals(Funko.IMG_DEFAULT)) {
+            storageService.delete(actualFunko.getImage());
+        }
+        actualFunko.setImage(urlName);
+        return funkoRepository.save(actualFunko);
+    }
     void onChange(Notificacion.Tipo tipo, Funko data) {
     log.debug("Servicio de productos onChange con tipo: " + tipo + " y datos: " + data);
 
