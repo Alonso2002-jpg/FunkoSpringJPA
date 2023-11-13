@@ -4,6 +4,7 @@ import org.develop.FunkoSpringJpa.funko.commons.dto.FunkoCreateDto;
 import org.develop.FunkoSpringJpa.funko.commons.dto.FunkoResponseDto;
 import org.develop.FunkoSpringJpa.funko.commons.dto.FunkoUpdateDto;
 import org.develop.FunkoSpringJpa.funko.commons.mainUse.model.Funko;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -61,6 +62,10 @@ public class FunkosMapper {
 
     public List<FunkoResponseDto> toResponseDtoList(List<Funko> funkos){
         return funkos.stream().map(this::toResponseDto).toList();
+    }
+
+    public Page<FunkoResponseDto> toPageResponse(Page<Funko> funkosPages){
+        return funkosPages.map(this::toResponseDto);
     }
 
 }
