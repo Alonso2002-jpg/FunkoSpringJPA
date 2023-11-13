@@ -79,7 +79,7 @@ public class FunkoServiceImpl implements FunkoService{
                     .orElseGet(() -> criteriaBuilder.isTrue(criteriaBuilder.literal(true)));
         Specification<Funko> specByCategory = (root, query, criteriaBuilder) ->
                 category.map(c ->{
-                Join<Funko, Categoria> categoriaJoin = root.join("categoria");
+                Join<Funko, Categoria> categoriaJoin = root.join("category");
                 return criteriaBuilder.like(criteriaBuilder.lower(categoriaJoin.get("nameCategory")), "%" + c.toLowerCase() + "%");
             }).orElseGet(() -> criteriaBuilder.isTrue(criteriaBuilder.literal(true)));
 
