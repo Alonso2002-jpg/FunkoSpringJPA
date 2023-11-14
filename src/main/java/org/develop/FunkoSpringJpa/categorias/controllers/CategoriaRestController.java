@@ -8,6 +8,10 @@ import org.develop.FunkoSpringJpa.categorias.commons.mainUse.dto.CategoriaUpdate
 import org.develop.FunkoSpringJpa.categorias.mappers.CategoriaMapper;
 import org.develop.FunkoSpringJpa.categorias.services.CategoriaService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
@@ -17,6 +21,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @RestController
 @Slf4j
@@ -31,8 +36,18 @@ public class CategoriaRestController {
     }
 
     @GetMapping
-    public ResponseEntity<List<CategoriaResponseDto>> getCategorias() {
-        return ResponseEntity.ok(categoriaMapper.toResponseDtoList(categoriaService.getAll()));
+    public ResponseEntity<Page<CategoriaResponseDto>> getCategorias(
+            @RequestParam(required = false) Optional<String> name,
+            @RequestParam(required = false) Optional<Boolean> isActive,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size,
+            @RequestParam(defaultValue = "id") String sortBy,
+            @RequestParam(defaultValue = "asc") String direction
+    ) {
+        log.info("Obteniendo los Funkos por : " + name + ", " + isActive);
+        Sort sort = direction.equalsIgnoreCase(Sort.Direction.ASC.name()) ? Sort.by(sortBy).ascending() : Sort.by(sortBy).descending();
+        Pageable pageable = PageRequest.of(page, size, sort);
+        return ResponseEntity.ok(categoriaMapper.toPageResponse(categoriaService.getAll(name,isActive,pageable)));
     }
 
     @GetMapping("/{id}")
