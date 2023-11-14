@@ -9,9 +9,13 @@ import org.develop.FunkoSpringJpa.categorias.mappers.CategoriaMapper;
 import org.develop.FunkoSpringJpa.categorias.repositories.CategoriaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @CacheConfig(cacheNames = "categorias")
@@ -27,8 +31,18 @@ public class CategoriaServiceImpl implements CategoriaService {
 
 
     @Override
-    public List<Categoria> getAll() {
-        return categoriaRepository.findAll();
+    public Page<Categoria> getAll(Optional<String> name, Optional<Boolean> isActive, Pageable pageable) {
+        Specification<Categoria> specByName = ((root, query, criteriaBuilder) ->
+                name.map(n -> criteriaBuilder.like(root.get("nameCategory"), "%" + n + "%"))
+                        .orElseGet(() -> criteriaBuilder.isTrue(criteriaBuilder.literal(true))));
+        Specification<Categoria> spectByIsActive = (root, query, criteriaBuilder) ->
+                isActive.map(isAc -> criteriaBuilder.equal(root.get("isActive"), isAc))
+                        .orElseGet(() -> criteriaBuilder.isTrue(criteriaBuilder.literal(true)));
+
+        Specification<Categoria> criteria = Specification.where(specByName)
+                .and(spectByIsActive);
+
+        return categoriaRepository.findAll(criteria, pageable);
     }
 
     @Override
