@@ -4,6 +4,7 @@ import org.develop.FunkoSpringJpa.categorias.commons.mainUse.dto.CategoriaCreate
 import org.develop.FunkoSpringJpa.categorias.commons.mainUse.dto.CategoriaResponseDto;
 import org.develop.FunkoSpringJpa.categorias.commons.mainUse.dto.CategoriaUpdateDto;
 import org.develop.FunkoSpringJpa.categorias.commons.mainUse.model.Categoria;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -57,5 +58,7 @@ public class CategoriaMapper {
         return categorias.stream().map(this::toResponseDto).toList();
     }
 
-
+    public Page<CategoriaResponseDto> toPageResponse(Page<Categoria> pageCategoria){
+        return pageCategoria.map(this::toResponseDto);
+    }
 }
