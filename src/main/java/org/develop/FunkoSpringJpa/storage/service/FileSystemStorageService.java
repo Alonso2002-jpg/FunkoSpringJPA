@@ -34,13 +34,14 @@ public class FileSystemStorageService implements StorageService{
 
     public FileSystemStorageService(@Value("${upload.root-location}") String path) {
         this.rootLocation = Paths.get(path);
+        deleteAll();
     }
 
     @Override
     public String store(MultipartFile file) {
         String filename = StringUtils.cleanPath(file.getOriginalFilename());
         String extension = StringUtils.getFilenameExtension(filename);
-        if (allowedExtensions.contains(extension)){
+        if (allowedExtensions.contains("."+extension)){
             throw new StorageBadRequest("Extension no permitida");
         }
         String justFilename = filename.replace("." + extension, "");

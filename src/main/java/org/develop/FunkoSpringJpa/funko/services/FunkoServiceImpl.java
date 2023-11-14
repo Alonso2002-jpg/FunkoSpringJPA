@@ -134,6 +134,7 @@ public class FunkoServiceImpl implements FunkoService{
     }
 
     @Override
+    @CachePut
     public Funko updateImage(Long id, MultipartFile file) {
         Funko actualFunko = findById(id);
         String img =storageService.store(file);

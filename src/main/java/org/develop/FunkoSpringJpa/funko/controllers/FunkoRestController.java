@@ -79,15 +79,8 @@ public class FunkoRestController {
 
     @PatchMapping(value = "imagen/{id}",consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<FunkoResponseDto> putImagen(@PathVariable long id, @RequestPart("file") MultipartFile file){
-
         if (!file.isEmpty()){
-            String img =storageService.store(file);
-            String urlName = storageService.getUrl(img).replace(" ","%");
-
-             var funko = funkoService.findById(id);
-             funko.setImage(urlName);
-             funkoService.update(id,funkosMapper.toUpdateDto(funko));
-             return ResponseEntity.ok(funkosMapper.toResponseDto(funko));
+             return ResponseEntity.ok(funkosMapper.toResponseDto(funkoService.updateImage(id,file)));
         }else {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Imagen no enviada");
         }
