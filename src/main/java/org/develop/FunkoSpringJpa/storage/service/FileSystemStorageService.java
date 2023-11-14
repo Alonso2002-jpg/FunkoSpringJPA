@@ -21,6 +21,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.util.List;
 import java.util.stream.Stream;
 
 @Service
@@ -28,16 +29,21 @@ import java.util.stream.Stream;
 public class FileSystemStorageService implements StorageService{
     // Directorio raiz de nuestro almacén de ficheros
     private final Path rootLocation;
+    private final List<String> allowedExtensions = List.of("png", "jpg", "jpeg", "gif");
 
 
     public FileSystemStorageService(@Value("${upload.root-location}") String path) {
         this.rootLocation = Paths.get(path);
+        deleteAll();
     }
 
     @Override
     public String store(MultipartFile file) {
         String filename = StringUtils.cleanPath(file.getOriginalFilename());
         String extension = StringUtils.getFilenameExtension(filename);
+        if (allowedExtensions.contains("."+extension)){
+            throw new StorageBadRequest("Extension no permitida");
+        }
         String justFilename = filename.replace("." + extension, "");
         String storedFilename = System.currentTimeMillis() + "_" + justFilename + "." + extension;
 

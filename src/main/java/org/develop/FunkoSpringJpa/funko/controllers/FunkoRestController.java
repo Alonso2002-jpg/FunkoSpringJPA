@@ -7,8 +7,10 @@ import org.develop.FunkoSpringJpa.funko.commons.dto.FunkoResponseDto;
 import org.develop.FunkoSpringJpa.funko.commons.dto.FunkoUpdateDto;
 import org.develop.FunkoSpringJpa.funko.mappers.FunkosMapper;
 import org.develop.FunkoSpringJpa.funko.services.FunkoService;
+import org.develop.FunkoSpringJpa.pages.models.PageResponse;
 import org.develop.FunkoSpringJpa.storage.service.StorageService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -21,6 +23,7 @@ import org.springframework.web.server.ResponseStatusException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @Slf4j
 @RestController
@@ -38,10 +41,19 @@ public class FunkoRestController {
     }
 
     @GetMapping
-    public ResponseEntity<List<FunkoResponseDto>> getFunkos(
-            @RequestParam(required = false) Double price,
-            @RequestParam(required = false) Long category) {
-        return ResponseEntity.ok(funkosMapper.toResponseDtoList(funkoService.getAll(price, category)));
+    public ResponseEntity<PageResponse<FunkoResponseDto>> getFunkos(
+            @RequestParam(required = false) Optional<String> name,
+            @RequestParam(required = false) Optional<Integer> quantity,
+            @RequestParam(required = false) Optional<Double> price,
+            @RequestParam(required = false) Optional<String> category,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size,
+            @RequestParam(defaultValue = "id") String sortBy,
+            @RequestParam(defaultValue = "asc") String direction) {
+        log.info("Obteniendo los Funkos por : " + name + ", " + quantity + ", " + price + ", " + category);
+        Sort sort = direction.equalsIgnoreCase(Sort.Direction.ASC.name()) ? Sort.by(sortBy).ascending() : Sort.by(sortBy).descending();
+        Pageable pageable = PageRequest.of(page, size, sort);
+        return ResponseEntity.ok(PageResponse.of(funkosMapper.toPageResponse(funkoService.getAll(name,quantity,price, category,pageable)),sortBy,direction));
     }
 
     @GetMapping("/{id}")
@@ -67,15 +79,8 @@ public class FunkoRestController {
 
     @PatchMapping(value = "imagen/{id}",consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<FunkoResponseDto> putImagen(@PathVariable long id, @RequestPart("file") MultipartFile file){
-
         if (!file.isEmpty()){
-            String img =storageService.store(file);
-            String urlName = storageService.getUrl(img).replace(" ","%");
-
-             var funko = funkoService.findById(id);
-             funko.setImage(urlName);
-             funkoService.update(id,funkosMapper.toUpdateDto(funko));
-             return ResponseEntity.ok(funkosMapper.toResponseDto(funko));
+             return ResponseEntity.ok(funkosMapper.toResponseDto(funkoService.updateImage(id,file)));
         }else {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Imagen no enviada");
         }

@@ -22,6 +22,8 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.data.domain.*;
+import org.springframework.data.jpa.domain.Specification;
 
 import java.io.IOException;
 import java.util.List;
@@ -96,73 +98,203 @@ class FunkoServiceImplTest {
     @Test
     void getAllEmpty() {
         var listFunks = List.of(funko1, funko2);
+        Pageable pageable = PageRequest.of(0,10, Sort.by("id").ascending());
+        Page<Funko> fknRes = new PageImpl<>(listFunks);
 
-        when(funkoRepository.findAll()).thenReturn(listFunks);
-        var res = funkoService.getAll(null, null);
+        when(funkoRepository.findAll(any(Specification.class),any(Pageable.class))).thenReturn(fknRes);
+        Page<Funko> res = funkoService.getAll(Optional.empty(),Optional.empty(),Optional.empty(),Optional.empty(),pageable);
+
+        assertAll(
+                ()-> assertNotNull(res),
+                ()-> assertFalse(res.isEmpty()),
+                ()-> assertEquals(fknRes,res)
+        );
+
+        verify(funkoRepository,times(1)).findAll(any(Specification.class),any(Pageable.class));
+    }
+
+    @Test
+    void getAllName(){
+        var listFunks = List.of(funko1, funko2);
+        Pageable pageable = PageRequest.of(0,10, Sort.by("id").ascending());
+        Page<Funko> fknRes = new PageImpl<>(listFunks);
+
+        when(funkoRepository.findAll(any(Specification.class),any(Pageable.class))).thenReturn(fknRes);
+        Page<Funko> res = funkoService.getAll(Optional.of("funko1"),Optional.empty(),Optional.empty(),Optional.empty(),pageable);
+
+        assertAll(
+                ()-> assertNotNull(res),
+                ()-> assertFalse(res.isEmpty()),
+                ()-> assertEquals(fknRes,res)
+        );
+
+        verify(funkoRepository,times(1)).findAll(any(Specification.class),any(Pageable.class));
+    }
+
+    @Test
+    void getAllQuantity(){
+        var listFunks = List.of(funko1, funko2);
+        Pageable pageable = PageRequest.of(0,10, Sort.by("id").ascending());
+        Page<Funko> fknRes = new PageImpl<>(listFunks);
+
+        when(funkoRepository.findAll(any(Specification.class),any(Pageable.class))).thenReturn(fknRes);
+        Page<Funko> res = funkoService.getAll(Optional.empty(),Optional.of(10),Optional.empty(),Optional.empty(),pageable);
 
         assertAll(
                 ()-> assertFalse(res.isEmpty()),
-                ()-> assertEquals(2,res.size()),
-                ()-> assertTrue(res.contains(funko1)),
-                ()-> assertTrue(res.contains(funko2))
+                ()-> assertFalse(res.isEmpty()),
+                ()-> assertEquals(fknRes,res)
         );
 
-        verify(funkoRepository,times(1)).findAll();
+        verify(funkoRepository,times(1)).findAll(any(Specification.class),any(Pageable.class));
     }
 
     @Test
     void getAllPrice(){
-         var listFunks = List.of(funko1, funko2);
+        var listFunks = List.of(funko1, funko2);
+        Pageable pageable = PageRequest.of(0,10, Sort.by("id").ascending());
+        Page<Funko> fknRes = new PageImpl<>(listFunks);
 
-        when(funkoRepository.findAllByPrice(15.0)).thenReturn(listFunks);
-        var res = funkoService.getAll(15.0, null);
+        when(funkoRepository.findAll(any(Specification.class),any(Pageable.class))).thenReturn(fknRes);
+        Page<Funko> res = funkoService.getAll(Optional.empty(),Optional.empty(),Optional.of(100.0),Optional.empty(),pageable);
 
         assertAll(
                 ()-> assertFalse(res.isEmpty()),
-                ()-> assertEquals(2,res.size()),
-                ()-> assertTrue(res.contains(funko1)),
-                ()-> assertTrue(res.contains(funko2))
+                ()-> assertFalse(res.isEmpty()),
+                ()-> assertEquals(fknRes,res)
         );
 
-        verify(funkoRepository,times(1)).findAllByPrice(15.0);
+        verify(funkoRepository,times(1)).findAll(any(Specification.class),any(Pageable.class));
     }
 
     @Test
     void getAllCategory(){
-         var listFunks = List.of(funko1, funko2);
-         var categoria = Categoria.builder().nameCategory("OTROS").build();
+        var listFunks = List.of(funko1, funko2);
+        Pageable pageable = PageRequest.of(0,10, Sort.by("id").ascending());
+        Page<Funko> fknRes = new PageImpl<>(listFunks);
 
-        when(categoriaService.getById(1L)).thenReturn(categoria);
-        when(funkoRepository.findAllByCategory(categoria)).thenReturn(listFunks);
-
-        var res = funkoService.getAll(null, 1L);
+        when(funkoRepository.findAll(any(Specification.class),any(Pageable.class))).thenReturn(fknRes);
+        Page<Funko> res = funkoService.getAll(Optional.empty(),Optional.empty(),Optional.empty(),Optional.of("series"),pageable);
 
         assertAll(
                 ()-> assertFalse(res.isEmpty()),
-                ()-> assertEquals(2,res.size()),
-                ()-> assertTrue(res.contains(funko2)),
-                ()-> assertTrue(res.contains(funko1))
+                ()-> assertFalse(res.isEmpty()),
+                ()-> assertEquals(fknRes,res)
         );
 
-        verify(funkoRepository,times(1)).findAllByCategory(categoria);
+        verify(funkoRepository,times(1)).findAll(any(Specification.class),any(Pageable.class));
     }
 
     @Test
-    void getAllCategoryAndPrice(){
+    void getAllNameAndQuantity(){
          var listFunks = List.of(
                  funko1,
                  funko2
                  );
-        when(categoriaService.getById(1L)).thenReturn(categoria);
-        when(funkoRepository.findAllByPriceAndCategory(1.0,categoria)).thenReturn(listFunks);
-        var res = funkoService.getAll(1.0, 1L);
+        Pageable pageable = PageRequest.of(0,10, Sort.by("id").ascending());
+        Page<Funko> fknRes = new PageImpl<>(listFunks);
+        when(funkoRepository.findAll(any(Specification.class),any(Pageable.class))).thenReturn(fknRes);
+        var res = funkoService.getAll(Optional.of("funko1"),Optional.of(10),Optional.empty(),Optional.empty(),pageable);
 
         assertAll(
                 ()-> assertFalse(res.isEmpty()),
-                ()-> assertEquals(2,res.size())
+                ()-> assertEquals(2,res.getTotalElements()),
+                ()-> assertEquals(fknRes,res)
         );
 
-        verify(funkoRepository,times(1)).findAllByPriceAndCategory(1.0,categoria);
+        verify(funkoRepository,times(1)).findAll(any(Specification.class),any(Pageable.class));
+    }
+
+    @Test
+    void getAllNameAndQuantityAndPrice(){
+         var listFunks = List.of(
+                 funko1,
+                 funko2
+                 );
+        Pageable pageable = PageRequest.of(0,10, Sort.by("id").ascending());
+        Page<Funko> fknRes = new PageImpl<>(listFunks);
+        when(funkoRepository.findAll(any(Specification.class),any(Pageable.class))).thenReturn(fknRes);
+        var res = funkoService.getAll(Optional.of("funko1"),Optional.of(10),Optional.of(100.0),Optional.empty(),pageable);
+
+        assertAll(
+                ()-> assertFalse(res.isEmpty()),
+                ()-> assertEquals(2,res.getTotalElements()),
+                ()-> assertEquals(fknRes,res)
+        );
+
+        verify(funkoRepository,times(1)).findAll(any(Specification.class),any(Pageable.class));
+    }
+
+    @Test
+    void getAllNameAndQuantityAndPriceAndCategory(){
+         var listFunks = List.of(
+                 funko1,
+                 funko2
+                 );
+        Pageable pageable = PageRequest.of(0,10, Sort.by("id").ascending());
+        Page<Funko> fknRes = new PageImpl<>(listFunks);
+        when(funkoRepository.findAll(any(Specification.class),any(Pageable.class))).thenReturn(fknRes);
+        var res = funkoService.getAll(Optional.of("funko1"),Optional.of(10),Optional.of(100.0),Optional.of("series"),pageable);
+
+        assertAll(
+                ()-> assertFalse(res.isEmpty()),
+                ()-> assertEquals(2,res.getTotalElements()),
+                ()-> assertEquals(fknRes,res)
+        );
+
+        verify(funkoRepository,times(1)).findAll(any(Specification.class),any(Pageable.class));
+    }
+
+    @Test
+    void getAllQuantityAndPrice(){
+        var listFunks = List.of(funko1, funko2);
+        Pageable pageable = PageRequest.of(0,10, Sort.by("id").ascending());
+        Page<Funko> fknRes = new PageImpl<>(listFunks);
+
+        when(funkoRepository.findAll(any(Specification.class),any(Pageable.class))).thenReturn(fknRes);
+        Page<Funko> res = funkoService.getAll(Optional.empty(),Optional.of(10),Optional.of(100.0),Optional.empty(),pageable);
+
+        assertAll(
+                ()-> assertFalse(res.isEmpty()),
+                ()-> assertFalse(res.isEmpty()),
+                ()-> assertEquals(fknRes,res)
+        );
+        verify(funkoRepository,times(1)).findAll(any(Specification.class),any(Pageable.class));
+    }
+
+    @Test
+    void getAllQuantityAndPriceAndCategory(){
+        var listFunks = List.of(funko1, funko2);
+        Pageable pageable = PageRequest.of(0,10, Sort.by("id").ascending());
+        Page<Funko> fknRes = new PageImpl<>(listFunks);
+
+        when(funkoRepository.findAll(any(Specification.class),any(Pageable.class))).thenReturn(fknRes);
+        Page<Funko> res = funkoService.getAll(Optional.empty(),Optional.of(10),Optional.of(100.0),Optional.of("series"),pageable);
+
+        assertAll(
+                ()-> assertFalse(res.isEmpty()),
+                ()-> assertFalse(res.isEmpty()),
+                ()-> assertEquals(fknRes,res)
+        );
+        verify(funkoRepository,times(1)).findAll(any(Specification.class),any(Pageable.class));
+    }
+
+    @Test
+    void getAllPriceAndCategory(){
+        var listFunks = List.of(funko1, funko2);
+        Pageable pageable = PageRequest.of(0,10, Sort.by("id").ascending());
+        Page<Funko> fknRes = new PageImpl<>(listFunks);
+
+        when(funkoRepository.findAll(any(Specification.class),any(Pageable.class))).thenReturn(fknRes);
+        Page<Funko> res = funkoService.getAll(Optional.empty(),Optional.empty(),Optional.of(100.0),Optional.of("series"),pageable);
+
+        assertAll(
+                ()-> assertFalse(res.isEmpty()),
+                ()-> assertFalse(res.isEmpty()),
+                ()-> assertEquals(fknRes,res)
+        );
+
+        verify(funkoRepository,times(1)).findAll(any(Specification.class),any(Pageable.class));
     }
     @Test
     void findById() {

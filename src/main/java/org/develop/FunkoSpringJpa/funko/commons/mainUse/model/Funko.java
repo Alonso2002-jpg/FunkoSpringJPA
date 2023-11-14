@@ -19,6 +19,7 @@ import java.time.LocalDate;
 @Entity
 @Table(name = "FUNKOS")
 public class Funko {
+    public static final String IMG_DEFAULT = "https://via.placeholder.com/150";
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -31,9 +32,8 @@ public class Funko {
     @Min(value = 0, message = "Quantity must be greater than or equal to 0")
     @Builder.Default
     private Integer quantity = 0;
-    @Pattern(regexp = ".*\\.(jpg|jpeg|png|gif|bmp)$", message = "IMG just can be a valid image")
-    @Builder.Default
-    private String image = "normal.jpg";
+    @Column(columnDefinition = "TEXT default '" + IMG_DEFAULT + "'")
+    private String image;
     @ManyToOne
     @JoinColumn(name = "category_id")
     private Categoria category;

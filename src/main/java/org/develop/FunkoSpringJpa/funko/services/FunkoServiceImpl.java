@@ -2,6 +2,7 @@ package org.develop.FunkoSpringJpa.funko.services;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import jakarta.persistence.criteria.Join;
 import lombok.extern.slf4j.Slf4j;
 import org.develop.FunkoSpringJpa.categorias.commons.mainUse.model.Categoria;
 import org.develop.FunkoSpringJpa.categorias.repositories.CategoriaRepository;
@@ -23,11 +24,16 @@ import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Slf4j
@@ -62,16 +68,28 @@ public class FunkoServiceImpl implements FunkoService{
     mapper = new ObjectMapper();
     }
     @Override
-    public List<Funko> getAll(Double price, Long category) {
-        if (category != null && price != null){
-            return funkoRepository.findAllByPriceAndCategory(price,categoriaService.getById(category));
-        }else if (price != null) {
-            return funkoRepository.findAllByPrice(price);
-        }else if (category != null) {
-            return funkoRepository.findAllByCategory(categoriaService.getById(category));
-        }else {
-           return funkoRepository.findAll();
-        }
+    public Page<Funko> getAll(Optional<String> name, Optional<Integer> quantity,Optional<Double> price, Optional<String> category, Pageable pageable) {
+        Specification<Funko> specByName = (root, query, criteriaBuilder) ->
+            name.map( na -> criteriaBuilder.like(criteriaBuilder.lower(root.get("name")), "%" + na.toLowerCase() + "%"))
+                    .orElseGet(() -> criteriaBuilder.isTrue(criteriaBuilder.literal(true)));
+        Specification<Funko> specByQuantity = (root, query, criteriaBuilder) ->
+            quantity.map( q -> criteriaBuilder.greaterThanOrEqualTo(root.get("quantity"), q))
+                    .orElseGet(() -> criteriaBuilder.isTrue(criteriaBuilder.literal(true)));
+        Specification<Funko> specByPrice = (root, query, criteriaBuilder) ->
+            price.map( p -> criteriaBuilder.greaterThanOrEqualTo(root.get("price"), p))
+                    .orElseGet(() -> criteriaBuilder.isTrue(criteriaBuilder.literal(true)));
+        Specification<Funko> specByCategory = (root, query, criteriaBuilder) ->
+                category.map(c ->{
+                Join<Funko, Categoria> categoriaJoin = root.join("category");
+                return criteriaBuilder.like(criteriaBuilder.lower(categoriaJoin.get("nameCategory")), "%" + c.toLowerCase() + "%");
+            }).orElseGet(() -> criteriaBuilder.isTrue(criteriaBuilder.literal(true)));
+
+        Specification<Funko> criterio = Specification.where(specByName)
+                .and(specByQuantity)
+                .and(specByCategory)
+                .and(specByPrice);
+
+        return funkoRepository.findAll(criterio, pageable);
     }
 
 
@@ -115,6 +133,18 @@ public class FunkoServiceImpl implements FunkoService{
         return funkoUpd;
     }
 
+    @Override
+    @CachePut
+    public Funko updateImage(Long id, MultipartFile file) {
+        Funko actualFunko = findById(id);
+        String img =storageService.store(file);
+        String urlName = storageService.getUrl(img).replace(" ","");
+        if (!actualFunko.getImage().equals(Funko.IMG_DEFAULT)) {
+            storageService.delete(actualFunko.getImage());
+        }
+        actualFunko.setImage(urlName);
+        return funkoRepository.save(actualFunko);
+    }
     void onChange(Notificacion.Tipo tipo, Funko data) {
     log.debug("Servicio de productos onChange con tipo: " + tipo + " y datos: " + data);
 

@@ -5,8 +5,13 @@ import org.develop.FunkoSpringJpa.funko.commons.dto.FunkoCreateDto;
 import org.develop.FunkoSpringJpa.funko.commons.dto.FunkoResponseDto;
 import org.develop.FunkoSpringJpa.funko.commons.dto.FunkoUpdateDto;
 import org.develop.FunkoSpringJpa.funko.commons.mainUse.model.Funko;
+import org.develop.FunkoSpringJpa.pages.models.PageResponse;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -103,6 +108,18 @@ class FunkosMapperTest {
          assertAll(
             () -> assertNotNull(fkDto),
             () -> assertEquals(funko1.getName(), fkDto.name())
+        );
+    }
+
+    @Test
+    void toPageResponse(){
+        Page<Funko> fkPageFun = new PageImpl<>(List.of(funko1));
+        Page<FunkoResponseDto> fkResDto = funkosMapper.toPageResponse(fkPageFun);
+
+        assertAll(
+                () -> assertNotNull(fkResDto),
+                () -> assertEquals(1,fkResDto.getTotalElements()),
+                () -> assertEquals(funko1.getName(),fkResDto.getContent().get(0).name())
         );
     }
 }
