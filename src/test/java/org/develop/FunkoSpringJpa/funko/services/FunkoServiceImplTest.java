@@ -12,10 +12,8 @@ import org.develop.FunkoSpringJpa.funko.commons.mainUse.model.Funko;
 import org.develop.FunkoSpringJpa.funko.exceptions.FunkoException;
 import org.develop.FunkoSpringJpa.funko.mappers.FunkosMapper;
 import org.develop.FunkoSpringJpa.funko.repositories.FunkoRepository;
-import org.develop.FunkoSpringJpa.websockets.dto.FunkoNotificacionResponseDto;
 import org.develop.FunkoSpringJpa.websockets.mapper.FunkoNotificacionMapper;
 import org.develop.FunkoSpringJpa.websockets.model.Notificacion;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -91,10 +89,6 @@ class FunkoServiceImplTest {
             .build();
     }
 
-    @AfterEach
-    void tearDown() {
-        funkoService.deleteAll();
-    }
     @Test
     void getAllEmpty() {
         var listFunks = List.of(funko1, funko2);
