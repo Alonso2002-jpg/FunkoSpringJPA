@@ -1,10 +1,11 @@
 package org.develop.FunkoSpringJpa.funko.mappers;
 
-import org.develop.FunkoSpringJpa.categorias.commons.model.Categoria;
-import org.develop.FunkoSpringJpa.funko.commons.dto.FunkoCreateDto;
-import org.develop.FunkoSpringJpa.funko.commons.dto.FunkoResponseDto;
-import org.develop.FunkoSpringJpa.funko.commons.dto.FunkoUpdateDto;
-import org.develop.FunkoSpringJpa.funko.commons.mainUse.model.Funko;
+import org.develop.FunkoSpringJpa.rest.categorias.commons.model.Categoria;
+import org.develop.FunkoSpringJpa.rest.funko.commons.dto.FunkoCreateDto;
+import org.develop.FunkoSpringJpa.rest.funko.commons.dto.FunkoResponseDto;
+import org.develop.FunkoSpringJpa.rest.funko.commons.dto.FunkoUpdateDto;
+import org.develop.FunkoSpringJpa.rest.funko.commons.mainUse.model.Funko;
+import org.develop.FunkoSpringJpa.rest.funko.mappers.FunkosMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.data.domain.Page;

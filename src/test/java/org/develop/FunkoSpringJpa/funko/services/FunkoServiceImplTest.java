@@ -1,15 +1,16 @@
 package org.develop.FunkoSpringJpa.funko.services;
 
-import org.develop.FunkoSpringJpa.categorias.commons.model.Categoria;
-import org.develop.FunkoSpringJpa.categorias.services.CategoriaService;
+import org.develop.FunkoSpringJpa.rest.categorias.commons.model.Categoria;
+import org.develop.FunkoSpringJpa.rest.categorias.services.CategoriaService;
 import org.develop.FunkoSpringJpa.config.websockets.WebSocketConfig;
 import org.develop.FunkoSpringJpa.config.websockets.WebSocketHandler;
-import org.develop.FunkoSpringJpa.funko.commons.dto.FunkoCreateDto;
-import org.develop.FunkoSpringJpa.funko.commons.dto.FunkoUpdateDto;
-import org.develop.FunkoSpringJpa.funko.commons.mainUse.model.Funko;
-import org.develop.FunkoSpringJpa.funko.exceptions.FunkoException;
-import org.develop.FunkoSpringJpa.funko.mappers.FunkosMapper;
-import org.develop.FunkoSpringJpa.funko.repositories.FunkoRepository;
+import org.develop.FunkoSpringJpa.rest.funko.commons.dto.FunkoCreateDto;
+import org.develop.FunkoSpringJpa.rest.funko.commons.dto.FunkoUpdateDto;
+import org.develop.FunkoSpringJpa.rest.funko.commons.mainUse.model.Funko;
+import org.develop.FunkoSpringJpa.rest.funko.exceptions.FunkoException;
+import org.develop.FunkoSpringJpa.rest.funko.mappers.FunkosMapper;
+import org.develop.FunkoSpringJpa.rest.funko.repositories.FunkoRepository;
+import org.develop.FunkoSpringJpa.rest.funko.services.FunkoServiceImpl;
 import org.develop.FunkoSpringJpa.websockets.mapper.FunkoNotificacionMapper;
 import org.develop.FunkoSpringJpa.websockets.model.Notificacion;
 import org.junit.jupiter.api.BeforeEach;

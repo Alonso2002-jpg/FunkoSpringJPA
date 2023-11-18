@@ -1,7 +1,8 @@
 package org.develop.FunkoSpringJpa.funko.repositories;
 
-import org.develop.FunkoSpringJpa.categorias.commons.model.Categoria;
-import org.develop.FunkoSpringJpa.funko.commons.mainUse.model.Funko;
+import org.develop.FunkoSpringJpa.rest.categorias.commons.model.Categoria;
+import org.develop.FunkoSpringJpa.rest.funko.commons.mainUse.model.Funko;
+import org.develop.FunkoSpringJpa.rest.funko.repositories.FunkoRepository;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

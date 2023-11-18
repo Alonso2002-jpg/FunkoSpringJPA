@@ -1,6 +1,6 @@
 package org.develop.FunkoSpringJpa.websockets.mapper;
 
-import org.develop.FunkoSpringJpa.funko.commons.mainUse.model.Funko;
+import org.develop.FunkoSpringJpa.rest.funko.commons.mainUse.model.Funko;
 import org.develop.FunkoSpringJpa.websockets.dto.FunkoNotificacionResponseDto;
 import org.springframework.stereotype.Component;
 

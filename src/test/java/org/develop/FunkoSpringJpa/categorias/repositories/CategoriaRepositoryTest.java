@@ -1,6 +1,7 @@
 package org.develop.FunkoSpringJpa.categorias.repositories;
 
-import org.develop.FunkoSpringJpa.categorias.commons.model.Categoria;
+import org.develop.FunkoSpringJpa.rest.categorias.commons.model.Categoria;
+import org.develop.FunkoSpringJpa.rest.categorias.repositories.CategoriaRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;

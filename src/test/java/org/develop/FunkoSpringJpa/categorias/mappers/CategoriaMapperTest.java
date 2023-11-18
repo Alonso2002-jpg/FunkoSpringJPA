@@ -1,9 +1,10 @@
 package org.develop.FunkoSpringJpa.categorias.mappers;
 
-import org.develop.FunkoSpringJpa.categorias.commons.dto.CategoriaCreateDto;
-import org.develop.FunkoSpringJpa.categorias.commons.dto.CategoriaResponseDto;
-import org.develop.FunkoSpringJpa.categorias.commons.dto.CategoriaUpdateDto;
-import org.develop.FunkoSpringJpa.categorias.commons.model.Categoria;
+import org.develop.FunkoSpringJpa.rest.categorias.commons.dto.CategoriaCreateDto;
+import org.develop.FunkoSpringJpa.rest.categorias.commons.dto.CategoriaResponseDto;
+import org.develop.FunkoSpringJpa.rest.categorias.commons.dto.CategoriaUpdateDto;
+import org.develop.FunkoSpringJpa.rest.categorias.commons.model.Categoria;
+import org.develop.FunkoSpringJpa.rest.categorias.mappers.CategoriaMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.data.domain.Page;
