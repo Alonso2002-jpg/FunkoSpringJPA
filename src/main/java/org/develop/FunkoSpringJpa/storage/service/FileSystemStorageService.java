@@ -41,9 +41,10 @@ public class FileSystemStorageService implements StorageService{
     public String store(MultipartFile file) {
         String filename = StringUtils.cleanPath(file.getOriginalFilename());
         String extension = StringUtils.getFilenameExtension(filename);
-        if (allowedExtensions.contains("."+extension)){
-            throw new StorageBadRequest("Extension no permitida");
-        }
+        allowedExtensions.stream()
+                .filter(ex -> extension.contains(ex))
+                .findAny()
+                .orElseThrow(()-> new StorageBadRequest("Extension no permitida"));
         String justFilename = filename.replace("." + extension, "");
         String storedFilename = System.currentTimeMillis() + "_" + justFilename + "." + extension;
 

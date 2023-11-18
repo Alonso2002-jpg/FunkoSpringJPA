@@ -17,4 +17,5 @@ public class FunkoSpringJpaApplication implements CommandLineRunner {
 	public void run(String... args) throws Exception {
 		System.out.println("Servidor Corriendo en puerto 8080");
 	}
+
 }
