@@ -1,13 +1,11 @@
 package org.develop.FunkoSpringJpa.categorias.services;
 
-import org.develop.FunkoSpringJpa.categorias.commons.mainUse.dto.CategoriaCreateDto;
-import org.develop.FunkoSpringJpa.categorias.commons.mainUse.dto.CategoriaUpdateDto;
-import org.develop.FunkoSpringJpa.categorias.commons.mainUse.model.Categoria;
+import org.develop.FunkoSpringJpa.categorias.commons.dto.CategoriaCreateDto;
+import org.develop.FunkoSpringJpa.categorias.commons.dto.CategoriaUpdateDto;
+import org.develop.FunkoSpringJpa.categorias.commons.model.Categoria;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.util.List;
 import java.util.Optional;
 
 public interface CategoriaService {

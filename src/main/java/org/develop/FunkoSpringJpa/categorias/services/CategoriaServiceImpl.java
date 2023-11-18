@@ -1,8 +1,8 @@
 package org.develop.FunkoSpringJpa.categorias.services;
 
-import org.develop.FunkoSpringJpa.categorias.commons.mainUse.dto.CategoriaCreateDto;
-import org.develop.FunkoSpringJpa.categorias.commons.mainUse.dto.CategoriaUpdateDto;
-import org.develop.FunkoSpringJpa.categorias.commons.mainUse.model.Categoria;
+import org.develop.FunkoSpringJpa.categorias.commons.dto.CategoriaCreateDto;
+import org.develop.FunkoSpringJpa.categorias.commons.dto.CategoriaUpdateDto;
+import org.develop.FunkoSpringJpa.categorias.commons.model.Categoria;
 import org.develop.FunkoSpringJpa.categorias.exceptions.CategoriaExistException;
 import org.develop.FunkoSpringJpa.categorias.exceptions.CategoriaNotFoundException;
 import org.develop.FunkoSpringJpa.categorias.mappers.CategoriaMapper;
@@ -14,7 +14,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Optional;
 
 @Service

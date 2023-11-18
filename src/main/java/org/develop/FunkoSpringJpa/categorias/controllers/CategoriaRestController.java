@@ -2,9 +2,9 @@ package org.develop.FunkoSpringJpa.categorias.controllers;
 
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
-import org.develop.FunkoSpringJpa.categorias.commons.mainUse.dto.CategoriaCreateDto;
-import org.develop.FunkoSpringJpa.categorias.commons.mainUse.dto.CategoriaResponseDto;
-import org.develop.FunkoSpringJpa.categorias.commons.mainUse.dto.CategoriaUpdateDto;
+import org.develop.FunkoSpringJpa.categorias.commons.dto.CategoriaCreateDto;
+import org.develop.FunkoSpringJpa.categorias.commons.dto.CategoriaResponseDto;
+import org.develop.FunkoSpringJpa.categorias.commons.dto.CategoriaUpdateDto;
 import org.develop.FunkoSpringJpa.categorias.mappers.CategoriaMapper;
 import org.develop.FunkoSpringJpa.categorias.services.CategoriaService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +19,6 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 

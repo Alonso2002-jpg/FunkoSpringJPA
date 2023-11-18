@@ -1,12 +1,11 @@
 package org.develop.FunkoSpringJpa.categorias.services;
 
-import org.develop.FunkoSpringJpa.categorias.commons.mainUse.dto.CategoriaCreateDto;
-import org.develop.FunkoSpringJpa.categorias.commons.mainUse.dto.CategoriaUpdateDto;
-import org.develop.FunkoSpringJpa.categorias.commons.mainUse.model.Categoria;
+import org.develop.FunkoSpringJpa.categorias.commons.dto.CategoriaCreateDto;
+import org.develop.FunkoSpringJpa.categorias.commons.dto.CategoriaUpdateDto;
+import org.develop.FunkoSpringJpa.categorias.commons.model.Categoria;
 import org.develop.FunkoSpringJpa.categorias.exceptions.CategoriaException;
 import org.develop.FunkoSpringJpa.categorias.mappers.CategoriaMapper;
 import org.develop.FunkoSpringJpa.categorias.repositories.CategoriaRepository;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

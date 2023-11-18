@@ -1,6 +1,6 @@
 package org.develop.FunkoSpringJpa.categorias.repositories;
 
-import org.develop.FunkoSpringJpa.categorias.commons.mainUse.model.Categoria;
+import org.develop.FunkoSpringJpa.categorias.commons.model.Categoria;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 

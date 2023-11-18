@@ -1,8 +1,6 @@
 package org.develop.FunkoSpringJpa.funko.services;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import org.develop.FunkoSpringJpa.categorias.commons.mainUse.model.Categoria;
+import org.develop.FunkoSpringJpa.categorias.commons.model.Categoria;
 import org.develop.FunkoSpringJpa.categorias.services.CategoriaService;
 import org.develop.FunkoSpringJpa.config.websockets.WebSocketConfig;
 import org.develop.FunkoSpringJpa.config.websockets.WebSocketHandler;

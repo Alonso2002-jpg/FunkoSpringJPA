@@ -3,7 +3,6 @@ package org.develop.FunkoSpringJpa.funko.commons.dto;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.Pattern;
 import lombok.Builder;
-import org.develop.FunkoSpringJpa.categorias.commons.mainUse.model.Categoria;
 
 @Builder
 public record FunkoUpdateDto(

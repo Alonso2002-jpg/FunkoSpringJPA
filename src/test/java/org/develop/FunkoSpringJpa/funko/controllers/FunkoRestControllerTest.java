@@ -3,7 +3,7 @@ package org.develop.FunkoSpringJpa.funko.controllers;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import org.develop.FunkoSpringJpa.categorias.commons.mainUse.model.Categoria;
+import org.develop.FunkoSpringJpa.categorias.commons.model.Categoria;
 import org.develop.FunkoSpringJpa.funko.commons.dto.FunkoCreateDto;
 import org.develop.FunkoSpringJpa.funko.commons.dto.FunkoResponseDto;
 import org.develop.FunkoSpringJpa.funko.commons.dto.FunkoUpdateDto;
@@ -29,7 +29,6 @@ import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.Optional;

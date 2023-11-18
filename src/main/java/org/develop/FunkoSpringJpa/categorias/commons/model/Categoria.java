@@ -1,4 +1,4 @@
-package org.develop.FunkoSpringJpa.categorias.commons.mainUse.model;
+package org.develop.FunkoSpringJpa.categorias.commons.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Pattern;

@@ -4,8 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.persistence.criteria.Join;
 import lombok.extern.slf4j.Slf4j;
-import org.develop.FunkoSpringJpa.categorias.commons.mainUse.model.Categoria;
-import org.develop.FunkoSpringJpa.categorias.repositories.CategoriaRepository;
+import org.develop.FunkoSpringJpa.categorias.commons.model.Categoria;
 import org.develop.FunkoSpringJpa.categorias.services.CategoriaService;
 import org.develop.FunkoSpringJpa.config.websockets.WebSocketConfig;
 import org.develop.FunkoSpringJpa.config.websockets.WebSocketHandler;
@@ -30,9 +29,7 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.List;
 import java.util.Optional;
 
 @Service

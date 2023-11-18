@@ -1,5 +1,5 @@
 package org.develop.FunkoSpringJpa.funko.mappers;
-import org.develop.FunkoSpringJpa.categorias.commons.mainUse.model.Categoria;
+import org.develop.FunkoSpringJpa.categorias.commons.model.Categoria;
 import org.develop.FunkoSpringJpa.funko.commons.dto.FunkoCreateDto;
 import org.develop.FunkoSpringJpa.funko.commons.dto.FunkoResponseDto;
 import org.develop.FunkoSpringJpa.funko.commons.dto.FunkoUpdateDto;

@@ -1,4 +1,4 @@
-package org.develop.FunkoSpringJpa.categorias.commons.mainUse.dto;
+package org.develop.FunkoSpringJpa.categorias.commons.dto;
 
 import lombok.Builder;
 

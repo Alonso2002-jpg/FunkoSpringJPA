@@ -1,9 +1,9 @@
 package org.develop.FunkoSpringJpa.categorias.mappers;
 
-import org.develop.FunkoSpringJpa.categorias.commons.mainUse.dto.CategoriaCreateDto;
-import org.develop.FunkoSpringJpa.categorias.commons.mainUse.dto.CategoriaResponseDto;
-import org.develop.FunkoSpringJpa.categorias.commons.mainUse.dto.CategoriaUpdateDto;
-import org.develop.FunkoSpringJpa.categorias.commons.mainUse.model.Categoria;
+import org.develop.FunkoSpringJpa.categorias.commons.dto.CategoriaCreateDto;
+import org.develop.FunkoSpringJpa.categorias.commons.dto.CategoriaResponseDto;
+import org.develop.FunkoSpringJpa.categorias.commons.dto.CategoriaUpdateDto;
+import org.develop.FunkoSpringJpa.categorias.commons.model.Categoria;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Component;
 
