@@ -35,6 +35,8 @@ dependencies {
     runtimeOnly("com.h2database:h2")
     annotationProcessor("org.projectlombok:lombok")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
+    //MongoDB
+    implementation("org.springframework.boot:spring-boot-starter-data-mongodb")
 }
 
 tasks.withType<Test> {
