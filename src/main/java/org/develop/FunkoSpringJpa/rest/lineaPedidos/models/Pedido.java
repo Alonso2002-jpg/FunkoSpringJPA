@@ -1,6 +1,8 @@
 package org.develop.FunkoSpringJpa.rest.lineaPedidos.models;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.EntityListeners;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -30,9 +32,9 @@ public class Pedido {
     @Builder.Default
     private ObjectId id = new ObjectId();
     @NotNull(message = "El Cliente no puede ser Nulo")
-    private Cliente cliente;
+    private @Valid Cliente cliente;
     @NotNull(message = "El pedido debe tener minimo una linea de pedido")
-    private List<LineaPedido> lineasPedido;
+    private @Valid List<LineaPedido> lineasPedido;
     @Builder.Default
     private Integer totalItems = 0;
     @Builder.Default
@@ -48,6 +50,7 @@ public class Pedido {
     @Builder.Default
     private Boolean deleted = false;
 
+    @JsonProperty("id")
     public String get_Id(){
         return id.toHexString();
     }

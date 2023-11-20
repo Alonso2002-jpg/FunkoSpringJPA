@@ -8,6 +8,7 @@ import org.develop.FunkoSpringJpa.rest.funko.exceptions.FunkoNotFound;
 import org.develop.FunkoSpringJpa.rest.funko.exceptions.FunkoNotStock;
 import org.develop.FunkoSpringJpa.rest.funko.repositories.FunkoRepository;
 import org.develop.FunkoSpringJpa.rest.funko.services.FunkoService;
+import org.develop.FunkoSpringJpa.rest.lineaPedidos.exceptions.PedidoBadRequest;
 import org.develop.FunkoSpringJpa.rest.lineaPedidos.exceptions.PedidoEmptyException;
 import org.develop.FunkoSpringJpa.rest.lineaPedidos.exceptions.PedidoNotFoundException;
 import org.develop.FunkoSpringJpa.rest.lineaPedidos.models.LineaPedido;
@@ -119,7 +120,11 @@ public class PedidoServiceImpl implements PedidoService{
     }
     void checkPedido(Pedido pedido){
         log.info("Comprobando pedido: {}", pedido);
-
+        pedido.getLineasPedido().forEach(linea -> {
+            if (linea.getIdFunko() == null){
+                throw new PedidoBadRequest(pedido.get_Id());
+            }
+        });
         if (pedido.getLineasPedido() == null || pedido.getLineasPedido().isEmpty()) {
             throw new PedidoEmptyException(pedido.get_Id());
         }

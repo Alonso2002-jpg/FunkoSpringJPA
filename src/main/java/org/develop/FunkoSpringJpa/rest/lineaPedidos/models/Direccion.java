@@ -8,6 +8,7 @@ import org.hibernate.validator.constraints.Length;
 @Builder
 public record Direccion(
         @Length(min = 3, message = "La calle debe tener mas de 3 caracteres")
+        @NotBlank(message = "La calle no puede estar vacia")
         String calle,
         @NotBlank(message = "El numero no puede estar vacio")
         String numero,

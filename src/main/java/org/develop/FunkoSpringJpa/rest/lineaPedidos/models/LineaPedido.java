@@ -1,6 +1,7 @@
 package org.develop.FunkoSpringJpa.rest.lineaPedidos.models;
 
 import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -16,6 +17,7 @@ public class LineaPedido {
     @Builder.Default
     @Min(value = 1, message = "La cantidad del producto debe ser mayor a 0")
     private Integer cantidad = 1;
+    @NotNull(message = "El ID no puede ser nulo")
     private Long idFunko;
     @Builder.Default
     @Min(value = 0, message = "El precio del Producto debe ser mayor o igual a 0")
